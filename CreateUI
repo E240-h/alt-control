@@ -1,0 +1,1126 @@
+-- Creates the Core UI
+
+local CoreGui = game.CoreGui
+_G.AltsConnected = 0
+
+local ScreenGui = Instance.new("ScreenGui")
+local MainWindow = Instance.new("Frame")
+local StatsWindow = Instance.new("Frame")
+local UIGradient = Instance.new("UIGradient")
+local TextLabel = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+local DropShadow = Instance.new("ImageLabel")
+local UIGradient_2 = Instance.new("UIGradient")
+local UIGradient_3 = Instance.new("UIGradient")
+local Content = Instance.new("Frame")
+local UIListLayout = Instance.new("UIListLayout")
+local CCLabel = Instance.new("TextLabel")
+local Counter = Instance.new("TextLabel")
+local CMEMLabel = Instance.new("TextLabel")
+local Counter_2 = Instance.new("TextLabel")
+local PINGLabel = Instance.new("TextLabel")
+local Counter_3 = Instance.new("TextLabel")
+local Sidebar = Instance.new("Frame")
+local AltsButton = Instance.new("TextButton")
+local DropShadow_2 = Instance.new("ImageLabel")
+local Icon = Instance.new("ImageLabel")
+local UICorner_2 = Instance.new("UICorner")
+local Bubble = Instance.new("Frame")
+local Arrow = Instance.new("ImageLabel")
+local UICorner_3 = Instance.new("UICorner")
+local Label = Instance.new("TextLabel")
+local Sample = Instance.new("ImageLabel")
+local SettingsButton = Instance.new("TextButton")
+local DropShadow_3 = Instance.new("ImageLabel")
+local Icon_2 = Instance.new("ImageLabel")
+local UICorner_4 = Instance.new("UICorner")
+local Bubble_2 = Instance.new("Frame")
+local Arrow_2 = Instance.new("ImageLabel")
+local UICorner_5 = Instance.new("UICorner")
+local Label_2 = Instance.new("TextLabel")
+local Sample_2 = Instance.new("ImageLabel")
+local UIListLayout_2 = Instance.new("UIListLayout")
+local CommandsButton = Instance.new("TextButton")
+local DropShadow_4 = Instance.new("ImageLabel")
+local Icon_3 = Instance.new("ImageLabel")
+local UICorner_6 = Instance.new("UICorner")
+local Bubble_3 = Instance.new("Frame")
+local Arrow_3 = Instance.new("ImageLabel")
+local UICorner_7 = Instance.new("UICorner")
+local Label_3 = Instance.new("TextLabel")
+local Sample_3 = Instance.new("ImageLabel")
+local PlayerWindow = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Subtitle = Instance.new("TextLabel")
+local UICorner_8 = Instance.new("UICorner")
+local DropShadow_5 = Instance.new("ImageLabel")
+local Avatar = Instance.new("Frame")
+local UICorner_9 = Instance.new("UICorner")
+local Outline = Instance.new("Frame")
+local UICorner_10 = Instance.new("UICorner")
+local AvatarImage = Instance.new("ImageLabel")
+local UICorner_11 = Instance.new("UICorner")
+local UIGradient_4 = Instance.new("UIGradient")
+local CurrentlyConnectedLabel = Instance.new("TextLabel")
+local AltCount = Instance.new("TextLabel")
+local Icon_4 = Instance.new("ImageLabel")
+local RankLabel = Instance.new("TextLabel")
+local Rank = Instance.new("TextLabel")
+local Icon_5 = Instance.new("ImageLabel")
+local DisplayNameLabel = Instance.new("TextLabel")
+local AltControllerLabel = Instance.new("TextLabel")
+local CMDSWindow = Instance.new("Frame")
+local Title_2 = Instance.new("TextLabel")
+local Icon_6 = Instance.new("ImageLabel")
+local UICorner_12 = Instance.new("UICorner")
+local Commands = Instance.new("Frame")
+local UIListLayout_3 = Instance.new("UIListLayout")
+local DropShadow_6 = Instance.new("ImageLabel")
+local CommandInfo = Instance.new("Frame")
+local UICorner_13 = Instance.new("UICorner")
+local Title_3 = Instance.new("TextLabel")
+local Close = Instance.new("ImageButton")
+local Desc = Instance.new("TextLabel")
+local UIListLayout_4 = Instance.new("UIListLayout")
+local AltsWindow = Instance.new("Frame")
+local Title_4 = Instance.new("TextLabel")
+local Icon_7 = Instance.new("ImageLabel")
+local UICorner_14 = Instance.new("UICorner")
+local DropShadow_7 = Instance.new("ImageLabel")
+local List = Instance.new("ScrollingFrame")
+local UIListLayout_5 = Instance.new("UIListLayout")
+
+--Properties:
+
+ScreenGui.Parent = CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+MainWindow.Name = "MainWindow"
+MainWindow.Parent = ScreenGui
+MainWindow.AnchorPoint = Vector2.new(0.5, 0.5)
+MainWindow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+MainWindow.BackgroundTransparency = 1.000
+MainWindow.Position = UDim2.new(0.5, 0, -0.5, 0)
+MainWindow.Size = UDim2.new(0.949999988, 0, 0.949999988, 0)
+
+local ToggleKeybind = "Q"
+local GUI = script.Parent
+local UIS = game:GetService('UserInputService')
+
+local tog = false
+
+local blur = Instance.new('BlurEffect', game.Lighting)
+blur.Enabled = true
+blur.Size = 0
+
+FOV = workspace.CurrentCamera
+
+local OldFov = workspace.CurrentCamera.FieldOfView
+
+local TS = game:GetService('TweenService')
+local TI = TweenInfo
+
+local ES = Enum.EasingStyle
+local ED = Enum.EasingDirection
+
+local MainFrame = MainWindow
+
+UIS.InputBegan:Connect(function(key)
+	if key.KeyCode == Enum.KeyCode[ToggleKeybind] then
+		tog = not tog
+		-- GUI.Enabled = tog
+		
+		if tog then 
+			TS:Create(FOV, TI.new(.35, ES.Quart, ED.InOut), {FieldOfView = OldFov-30}):Play()
+			
+			TS:Create(blur, TI.new(.15, ES.Quad, ED.InOut), {Size = 12}):Play()  
+			TS:Create(MainFrame, TI.new(.35, ES.Exponential, ED.Out), {Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
+		elseif not tog then 
+			TS:Create(FOV, TI.new(.35, ES.Quart, ED.InOut), {FieldOfView = OldFov}):Play() 
+			
+			TS:Create(blur, TI.new(.15, ES.Quad, ED.InOut), {Size = 0}):Play()
+			TS:Create(MainFrame, TI.new(.15, ES.Exponential, ED.In), {Position = UDim2.new(0.5, 0, -0.5, 0)}):Play()
+		end
+	end
+end)
+
+UIGradient.Rotation = 270
+UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.37, 1.00), NumberSequenceKeypoint.new(1.00, 1.00)}
+UIGradient.Parent = MainWindow
+
+StatsWindow.Name = "StatsWindow"
+StatsWindow.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+StatsWindow.BorderSizePixel = 0
+StatsWindow.Position = UDim2.new(0.0157068055, 0, 0.0233333334, 0)
+StatsWindow.Size = UDim2.new(0, 280, 0, 100)
+
+wait(.1)
+
+TextLabel.Parent = StatsWindow
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Position = UDim2.new(0.0392857157, 0, 0.0781818405, 0)
+TextLabel.Size = UDim2.new(0, 259, 0, 15)
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.Text = "Dooms Alt Control GUI"
+TextLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+TextLabel.TextSize = 16.000
+TextLabel.TextStrokeTransparency = 0.800
+TextLabel.TextWrapped = true
+TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+UICorner.Parent = StatsWindow
+
+DropShadow.Name = "DropShadow"
+DropShadow.Parent = StatsWindow
+DropShadow.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow.BackgroundTransparency = 1.000
+DropShadow.Position = UDim2.new(0, -15, 0, -15)
+DropShadow.Size = UDim2.new(1, 30, 1, 30)
+DropShadow.Visible = false
+DropShadow.ZIndex = 0
+DropShadow.Image = "rbxassetid://13246894467"
+DropShadow.ImageColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow.ScaleType = Enum.ScaleType.Slice
+DropShadow.SliceCenter = Rect.new(90, 76, 772, 787)
+
+UIGradient_2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(106, 208, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(58, 111, 255))}
+UIGradient_2.Rotation = 45
+UIGradient_2.Parent = DropShadow
+
+
+
+Content.Name = "Content"
+Content.Parent = StatsWindow
+Content.AnchorPoint = Vector2.new(0.5, 0)
+Content.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Content.BackgroundTransparency = 1.000
+Content.Position = UDim2.new(0.5, 0, 0.300000012, 0)
+Content.Size = UDim2.new(0, 280, 0, 70)
+
+UIListLayout.Parent = Content
+UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+CCLabel.Name = "CCLabel"
+CCLabel.Parent = Content
+CCLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CCLabel.BackgroundTransparency = 1.000
+CCLabel.Position = UDim2.new(0.042857144, 0, 0, 0)
+CCLabel.Size = UDim2.new(0, 256, 0, 20)
+CCLabel.Font = Enum.Font.GothamBold
+CCLabel.Text = "Currently Connected:"
+CCLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+CCLabel.TextSize = 13.000
+CCLabel.TextWrapped = true
+CCLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+Counter.Name = "Counter"
+Counter.Parent = CCLabel
+Counter.AnchorPoint = Vector2.new(0, 0.5)
+Counter.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+Counter.BackgroundTransparency = 1.000
+Counter.Position = UDim2.new(0.734596133, 0, 0.5, 0)
+Counter.Size = UDim2.new(0, 68, 0, 18)
+Counter.Font = Enum.Font.GothamBold
+Counter.Text = "0 Alts"
+Counter.TextColor3 = Color3.fromRGB(75, 75, 75)
+Counter.TextSize = 13.000
+Counter.TextWrapped = true
+Counter.TextXAlignment = Enum.TextXAlignment.Right
+
+CMEMLabel.Name = "CMEMLabel"
+CMEMLabel.Parent = Content
+CMEMLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CMEMLabel.BackgroundTransparency = 1.000
+CMEMLabel.Position = UDim2.new(0.042857144, 0, 0.314285725, 0)
+CMEMLabel.Size = UDim2.new(0, 256, 0, 20)
+CMEMLabel.Font = Enum.Font.GothamBold
+CMEMLabel.Text = "CMEM:"
+CMEMLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+CMEMLabel.TextSize = 13.000
+CMEMLabel.TextWrapped = true
+CMEMLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+Counter_2.Name = "Counter"
+Counter_2.Parent = CMEMLabel
+Counter_2.AnchorPoint = Vector2.new(0, 0.5)
+Counter_2.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+Counter_2.BackgroundTransparency = 1.000
+Counter_2.Position = UDim2.new(0.734596133, 0, 0.5, 0)
+Counter_2.Size = UDim2.new(0, 68, 0, 18)
+Counter_2.Font = Enum.Font.GothamBold
+Counter_2.Text = "0"
+Counter_2.TextColor3 = Color3.fromRGB(75, 75, 75)
+Counter_2.TextSize = 13.000
+Counter_2.TextWrapped = true
+Counter_2.TextXAlignment = Enum.TextXAlignment.Right
+
+PINGLabel.Name = "PINGLabel"
+PINGLabel.Parent = Content
+PINGLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PINGLabel.BackgroundTransparency = 1.000
+PINGLabel.Position = UDim2.new(0.042857144, 0, 0.600000024, 0)
+PINGLabel.Size = UDim2.new(0, 256, 0, 20)
+PINGLabel.Font = Enum.Font.GothamBold
+PINGLabel.Text = "PING:"
+PINGLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+PINGLabel.TextSize = 13.000
+PINGLabel.TextWrapped = true
+PINGLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+Counter_3.Name = "Counter"
+Counter_3.Parent = PINGLabel
+Counter_3.AnchorPoint = Vector2.new(0, 0.5)
+Counter_3.BackgroundColor3 = Color3.fromRGB(32, 32, 32)
+Counter_3.BackgroundTransparency = 1.000
+Counter_3.Position = UDim2.new(0.734596133, 0, 0.5, 0)
+Counter_3.Size = UDim2.new(0, 68, 0, 18)
+Counter_3.Font = Enum.Font.GothamBold
+Counter_3.Text = "0"
+Counter_3.TextColor3 = Color3.fromRGB(75, 75, 75)
+Counter_3.TextSize = 13.000
+Counter_3.TextWrapped = true
+Counter_3.TextXAlignment = Enum.TextXAlignment.Right
+
+Sidebar.Name = "Sidebar"
+Sidebar.Parent = StatsWindow
+Sidebar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sidebar.BackgroundTransparency = 1.000
+Sidebar.Position = UDim2.new(1.02714276, 0, 0, 0)
+Sidebar.Size = UDim2.new(0, 50, 0, 224)
+
+AltsButton.Name = "AltsButton"
+AltsButton.Parent = Sidebar
+AltsButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+AltsButton.Position = UDim2.new(1.03214288, 0, 0.163636371, 0)
+AltsButton.Size = UDim2.new(0, 50, 0, 50)
+AltsButton.AutoButtonColor = false
+AltsButton.Font = Enum.Font.SourceSans
+AltsButton.Text = ""
+AltsButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+AltsButton.TextSize = 14.000
+
+DropShadow_2.Name = "DropShadow"
+DropShadow_2.Parent = AltsButton
+DropShadow_2.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DropShadow_2.BackgroundTransparency = 1.000
+DropShadow_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+DropShadow_2.Size = UDim2.new(0.899999976, 30, 0.899999976, 30)
+DropShadow_2.Visible = false
+DropShadow_2.ZIndex = 0
+DropShadow_2.Image = "rbxassetid://5028857084"
+DropShadow_2.ImageColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow_2.ScaleType = Enum.ScaleType.Slice
+DropShadow_2.SliceCenter = Rect.new(36, 36, 276, 276)
+
+Icon.Name = "Icon"
+Icon.Parent = AltsButton
+Icon.AnchorPoint = Vector2.new(0.5, 0.5)
+Icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Icon.BackgroundTransparency = 1.000
+Icon.Position = UDim2.new(0.5, 0, 0.5, 0)
+Icon.Size = UDim2.new(0.5, 0, 0.5, 0)
+Icon.Image = "http://www.roblox.com/asset/?id=13246959103"
+Icon.ImageColor3 = Color3.fromRGB(145, 145, 145)
+
+UICorner_2.Parent = AltsButton
+
+Bubble.Name = "Bubble"
+Bubble.Parent = AltsButton
+Bubble.AnchorPoint = Vector2.new(0, 0.5)
+Bubble.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Bubble.BackgroundTransparency = 1.000
+Bubble.Position = UDim2.new(1.24000001, 0, 0.5, 0)
+Bubble.Size = UDim2.new(0, 0, 0, 27)
+
+Arrow.Name = "Arrow"
+Arrow.Parent = Bubble
+Arrow.AnchorPoint = Vector2.new(1, 0.5)
+Arrow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Arrow.BackgroundTransparency = 1.000
+Arrow.Position = UDim2.new(0, 0, 0.5, 0)
+Arrow.Rotation = 270.000
+Arrow.Size = UDim2.new(0, 6, 0, 6)
+Arrow.Image = "rbxassetid://4862800922"
+Arrow.ImageColor3 = Color3.fromRGB(25, 25, 25)
+Arrow.ImageTransparency = 1.000
+
+UICorner_3.Parent = Bubble
+
+Label.Name = "Label"
+Label.Parent = Bubble
+Label.AnchorPoint = Vector2.new(0.5, 0.5)
+Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Label.BackgroundTransparency = 1.000
+Label.Position = UDim2.new(0.5, 0, 0.5, 0)
+Label.Size = UDim2.new(1, 0, 0.477999985, 0)
+Label.Font = Enum.Font.GothamBold
+Label.Text = "Alts"
+Label.TextColor3 = Color3.fromRGB(145, 145, 145)
+Label.TextScaled = true
+Label.TextSize = 14.000
+Label.TextTransparency = 1.000
+Label.TextWrapped = true
+Label.TextYAlignment = Enum.TextYAlignment.Bottom
+
+Sample.Name = "Sample"
+Sample.Parent = nil
+Sample.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sample.BackgroundTransparency = 1.000
+Sample.Image = "http://www.roblox.com/asset/?id=4560909609"
+Sample.ImageTransparency = 0.800
+
+SettingsButton.Name = "SettingsButton"
+SettingsButton.Parent = Sidebar
+SettingsButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+SettingsButton.Position = UDim2.new(1.03214288, 0, 0.351515174, 0)
+SettingsButton.Size = UDim2.new(0, 50, 0, 50)
+SettingsButton.AutoButtonColor = false
+SettingsButton.Font = Enum.Font.SourceSans
+SettingsButton.Text = ""
+SettingsButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+SettingsButton.TextSize = 14.000
+
+DropShadow_3.Name = "DropShadow"
+DropShadow_3.Parent = SettingsButton
+DropShadow_3.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DropShadow_3.BackgroundTransparency = 1.000
+DropShadow_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+DropShadow_3.Size = UDim2.new(0.899999976, 30, 0.899999976, 30)
+DropShadow_3.Visible = false
+DropShadow_3.ZIndex = 0
+DropShadow_3.Image = "rbxassetid://5028857084"
+DropShadow_3.ImageColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow_3.ScaleType = Enum.ScaleType.Slice
+DropShadow_3.SliceCenter = Rect.new(36, 36, 276, 276)
+
+Icon_2.Name = "Icon"
+Icon_2.Parent = SettingsButton
+Icon_2.AnchorPoint = Vector2.new(0.5, 0.5)
+Icon_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Icon_2.BackgroundTransparency = 1.000
+Icon_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+Icon_2.Size = UDim2.new(0.5, 0, 0.5, 0)
+Icon_2.Image = "http://www.roblox.com/asset/?id=13246956536"
+Icon_2.ImageColor3 = Color3.fromRGB(145, 145, 145)
+
+UICorner_4.Parent = SettingsButton
+
+Bubble_2.Name = "Bubble"
+Bubble_2.Parent = SettingsButton
+Bubble_2.AnchorPoint = Vector2.new(0, 0.5)
+Bubble_2.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Bubble_2.BackgroundTransparency = 1.000
+Bubble_2.Position = UDim2.new(1.24000001, 0, 0.5, 0)
+Bubble_2.Size = UDim2.new(0, 0, 0, 27)
+
+Arrow_2.Name = "Arrow"
+Arrow_2.Parent = Bubble_2
+Arrow_2.AnchorPoint = Vector2.new(1, 0.5)
+Arrow_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Arrow_2.BackgroundTransparency = 1.000
+Arrow_2.Position = UDim2.new(0, 0, 0.5, 0)
+Arrow_2.Rotation = 270.000
+Arrow_2.Size = UDim2.new(0, 6, 0, 6)
+Arrow_2.Image = "rbxassetid://4862800922"
+Arrow_2.ImageColor3 = Color3.fromRGB(25, 25, 25)
+Arrow_2.ImageTransparency = 1.000
+
+UICorner_5.Parent = Bubble_2
+
+Label_2.Name = "Label"
+Label_2.Parent = Bubble_2
+Label_2.AnchorPoint = Vector2.new(0.5, 0.5)
+Label_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Label_2.BackgroundTransparency = 1.000
+Label_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+Label_2.Size = UDim2.new(1, 0, 0.477999985, 0)
+Label_2.Font = Enum.Font.GothamBold
+Label_2.Text = "Settings"
+Label_2.TextColor3 = Color3.fromRGB(145, 145, 145)
+Label_2.TextScaled = true
+Label_2.TextSize = 14.000
+Label_2.TextTransparency = 1.000
+Label_2.TextWrapped = true
+Label_2.TextYAlignment = Enum.TextYAlignment.Bottom
+
+Sample_2.Name = "Sample"
+Sample_2.Parent = nil
+Sample_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sample_2.BackgroundTransparency = 1.000
+Sample_2.Image = "http://www.roblox.com/asset/?id=4560909609"
+Sample_2.ImageTransparency = 0.800
+
+UIListLayout_2.Parent = Sidebar
+UIListLayout_2.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_2.Padding = UDim.new(0, 6)
+
+CommandsButton.Name = "CommandsButton"
+CommandsButton.Parent = Sidebar
+CommandsButton.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+CommandsButton.Position = UDim2.new(1.03214288, 0, 0.351515174, 0)
+CommandsButton.Size = UDim2.new(0, 50, 0, 50)
+CommandsButton.AutoButtonColor = false
+CommandsButton.Font = Enum.Font.SourceSans
+CommandsButton.Text = ""
+CommandsButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+CommandsButton.TextSize = 14.000
+
+DropShadow_4.Name = "DropShadow"
+DropShadow_4.Parent = CommandsButton
+DropShadow_4.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DropShadow_4.BackgroundTransparency = 1.000
+DropShadow_4.Position = UDim2.new(0.5, 0, 0.5, 0)
+DropShadow_4.Size = UDim2.new(0.899999976, 30, 0.899999976, 30)
+DropShadow_4.Visible = false
+DropShadow_4.ZIndex = 0
+DropShadow_4.Image = "rbxassetid://5028857084"
+DropShadow_4.ImageColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow_4.ScaleType = Enum.ScaleType.Slice
+DropShadow_4.SliceCenter = Rect.new(36, 36, 276, 276)
+
+Icon_3.Name = "Icon"
+Icon_3.Parent = CommandsButton
+Icon_3.AnchorPoint = Vector2.new(0.5, 0.5)
+Icon_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Icon_3.BackgroundTransparency = 1.000
+Icon_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+Icon_3.Size = UDim2.new(0.5, 0, 0.5, 0)
+Icon_3.Image = "http://www.roblox.com/asset/?id=13247245125"
+Icon_3.ImageColor3 = Color3.fromRGB(145, 145, 145)
+
+UICorner_6.Parent = CommandsButton
+
+Bubble_3.Name = "Bubble"
+Bubble_3.Parent = CommandsButton
+Bubble_3.AnchorPoint = Vector2.new(0, 0.5)
+Bubble_3.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Bubble_3.BackgroundTransparency = 1.000
+Bubble_3.Position = UDim2.new(1.24000001, 0, 0.5, 0)
+Bubble_3.Size = UDim2.new(0, 0, 0, 27)
+
+Arrow_3.Name = "Arrow"
+Arrow_3.Parent = Bubble_3
+Arrow_3.AnchorPoint = Vector2.new(1, 0.5)
+Arrow_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Arrow_3.BackgroundTransparency = 1.000
+Arrow_3.Position = UDim2.new(0, 0, 0.5, 0)
+Arrow_3.Rotation = 270.000
+Arrow_3.Size = UDim2.new(0, 6, 0, 6)
+Arrow_3.Image = "rbxassetid://4862800922"
+Arrow_3.ImageColor3 = Color3.fromRGB(25, 25, 25)
+Arrow_3.ImageTransparency = 1.000
+
+UICorner_7.Parent = Bubble_3
+
+Label_3.Name = "Label"
+Label_3.Parent = Bubble_3
+Label_3.AnchorPoint = Vector2.new(0.5, 0.5)
+Label_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Label_3.BackgroundTransparency = 1.000
+Label_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+Label_3.Size = UDim2.new(1, 0, 0.477999985, 0)
+Label_3.Font = Enum.Font.GothamBold
+Label_3.Text = "Commands"
+Label_3.TextColor3 = Color3.fromRGB(145, 145, 145)
+Label_3.TextScaled = true
+Label_3.TextSize = 14.000
+Label_3.TextTransparency = 1.000
+Label_3.TextWrapped = true
+Label_3.TextYAlignment = Enum.TextYAlignment.Bottom
+
+Sample_3.Name = "Sample"
+Sample_3.Parent = nil
+Sample_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sample_3.BackgroundTransparency = 1.000
+Sample_3.Image = "http://www.roblox.com/asset/?id=4560909609"
+Sample_3.ImageTransparency = 0.800
+
+PlayerWindow.Name = "PlayerWindow"
+PlayerWindow.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+PlayerWindow.BorderSizePixel = 0
+PlayerWindow.Position = UDim2.new(0.0160000008, 0, 0.146169588, 0)
+PlayerWindow.Size = UDim2.new(0, 280, 0, 330)
+
+wait(.1)
+
+Title.Name = "Title"
+Title.Parent = PlayerWindow
+Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1.000
+Title.Position = UDim2.new(0.032142859, 0, 0.0181818157, 0)
+Title.Size = UDim2.new(0, 261, 0, 26)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "Dooms Alt Control GUI"
+Title.TextColor3 = Color3.fromRGB(240, 240, 240)
+Title.TextSize = 16.000
+Title.TextWrapped = true
+
+Subtitle.Name = "Subtitle"
+Subtitle.Parent = PlayerWindow
+Subtitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Subtitle.BackgroundTransparency = 1.000
+Subtitle.Position = UDim2.new(0.032142859, 0, 0.087878786, 0)
+Subtitle.Size = UDim2.new(0, 261, 0, 15)
+Subtitle.Font = Enum.Font.GothamBold
+Subtitle.Text = "doom#1000"
+Subtitle.TextColor3 = Color3.fromRGB(75, 75, 75)
+Subtitle.TextSize = 16.000
+Subtitle.TextWrapped = true
+
+UICorner_8.Parent = PlayerWindow
+
+DropShadow_5.Name = "DropShadow"
+DropShadow_5.Parent = PlayerWindow
+DropShadow_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DropShadow_5.BackgroundTransparency = 1.000
+DropShadow_5.Position = UDim2.new(0, -15, 0, -15)
+DropShadow_5.Size = UDim2.new(1, 30, 1, 30)
+DropShadow_5.Visible = false
+DropShadow_5.ZIndex = 0
+DropShadow_5.Image = "rbxassetid://13246894467"
+DropShadow_5.ImageColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow_5.ScaleType = Enum.ScaleType.Slice
+DropShadow_5.SliceCenter = Rect.new(90, 76, 772, 787)
+
+Avatar.Name = "Avatar"
+Avatar.Parent = PlayerWindow
+Avatar.AnchorPoint = Vector2.new(0.5, 0)
+Avatar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Avatar.Position = UDim2.new(0.5, 0, 0.181999996, 0)
+Avatar.Size = UDim2.new(0, 142, 0, 142)
+
+UICorner_9.CornerRadius = UDim.new(1, 0)
+UICorner_9.Parent = Avatar
+
+Outline.Name = "Outline"
+Outline.Parent = Avatar
+Outline.AnchorPoint = Vector2.new(0.5, 0.5)
+Outline.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Outline.Position = UDim2.new(0.5, 0, 0.5, 0)
+Outline.Size = UDim2.new(0.949999988, 0, 0.949999988, 0)
+
+UICorner_10.CornerRadius = UDim.new(1, 0)
+UICorner_10.Parent = Outline
+
+AvatarImage.Name = "AvatarImage"
+AvatarImage.Parent = Outline
+AvatarImage.AnchorPoint = Vector2.new(0.5, 0.5)
+AvatarImage.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+AvatarImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+AvatarImage.Size = UDim2.new(0.949999988, 0, 0.949999988, 0)
+AvatarImage.Image = "rbxassetid://9281566377"
+
+UICorner_11.CornerRadius = UDim.new(1, 0)
+UICorner_11.Parent = AvatarImage
+
+UIGradient_4.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(106, 208, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(58, 111, 255))}
+UIGradient_4.Rotation = 45
+UIGradient_4.Parent = Avatar
+
+CurrentlyConnectedLabel.Name = "CurrentlyConnectedLabel"
+CurrentlyConnectedLabel.Parent = PlayerWindow
+CurrentlyConnectedLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CurrentlyConnectedLabel.BackgroundTransparency = 1.000
+CurrentlyConnectedLabel.Position = UDim2.new(0.142857149, 0, 0.815151572, 0)
+CurrentlyConnectedLabel.Size = UDim2.new(0, 161, 0, 26)
+CurrentlyConnectedLabel.Font = Enum.Font.GothamBold
+CurrentlyConnectedLabel.Text = "Currently Connected:"
+CurrentlyConnectedLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+CurrentlyConnectedLabel.TextSize = 16.000
+CurrentlyConnectedLabel.TextWrapped = true
+CurrentlyConnectedLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+AltCount.Name = "AltCount"
+AltCount.Parent = CurrentlyConnectedLabel
+AltCount.AnchorPoint = Vector2.new(0, 0.5)
+AltCount.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AltCount.BackgroundTransparency = 1.000
+AltCount.Position = UDim2.new(1.06599998, 0, 0.5, 0)
+AltCount.Size = UDim2.new(0, 55, 0, 18)
+AltCount.Font = Enum.Font.GothamBold
+AltCount.Text = "5 Alts"
+AltCount.TextColor3 = Color3.fromRGB(75, 75, 75)
+AltCount.TextSize = 16.000
+AltCount.TextWrapped = true
+AltCount.TextXAlignment = Enum.TextXAlignment.Right
+
+Icon_4.Name = "Icon"
+Icon_4.Parent = CurrentlyConnectedLabel
+Icon_4.AnchorPoint = Vector2.new(0, 0.5)
+Icon_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Icon_4.BackgroundTransparency = 1.000
+Icon_4.Position = UDim2.new(-0.145999998, 0, 0.5, 0)
+Icon_4.Size = UDim2.new(0, 20, 0, 20)
+Icon_4.Image = "http://www.roblox.com/asset/?id=13246959103"
+Icon_4.ImageColor3 = Color3.fromRGB(240, 240, 240)
+
+RankLabel.Name = "RankLabel"
+RankLabel.Parent = PlayerWindow
+RankLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+RankLabel.BackgroundTransparency = 1.000
+RankLabel.Position = UDim2.new(0.142857134, 0, 0.893939376, 0)
+RankLabel.Size = UDim2.new(0, 56, 0, 26)
+RankLabel.Font = Enum.Font.GothamBold
+RankLabel.Text = "Rank:"
+RankLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+RankLabel.TextSize = 16.000
+RankLabel.TextWrapped = true
+RankLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+Rank.Name = "Rank"
+Rank.Parent = RankLabel
+Rank.AnchorPoint = Vector2.new(0, 0.5)
+Rank.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Rank.BackgroundTransparency = 1.000
+Rank.Position = UDim2.new(1.36000001, 0, 0.5, 0)
+Rank.Size = UDim2.new(0, 151, 0, 18)
+Rank.Font = Enum.Font.GothamBold
+Rank.Text = "Developer"
+Rank.TextColor3 = Color3.fromRGB(75, 75, 75)
+Rank.TextSize = 16.000
+Rank.TextWrapped = true
+Rank.TextXAlignment = Enum.TextXAlignment.Right
+
+Icon_5.Name = "Icon"
+Icon_5.Parent = RankLabel
+Icon_5.AnchorPoint = Vector2.new(0, 0.5)
+Icon_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Icon_5.BackgroundTransparency = 1.000
+Icon_5.Position = UDim2.new(-0.388000011, 0, 0.5, 0)
+Icon_5.Size = UDim2.new(0, 15, 0, 15)
+Icon_5.Image = "http://www.roblox.com/asset/?id=13247194250"
+Icon_5.ImageColor3 = Color3.fromRGB(240, 240, 240)
+
+DisplayNameLabel.Name = "DisplayNameLabel"
+DisplayNameLabel.Parent = PlayerWindow
+DisplayNameLabel.AnchorPoint = Vector2.new(0.5, 0)
+DisplayNameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DisplayNameLabel.BackgroundTransparency = 1.000
+DisplayNameLabel.Position = UDim2.new(0.5, 0, 0.635878801, 0)
+DisplayNameLabel.Size = UDim2.new(1, 0, 0, 18)
+DisplayNameLabel.Font = Enum.Font.GothamBold
+DisplayNameLabel.Text = "DisplayName"
+DisplayNameLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+DisplayNameLabel.TextSize = 20.000
+DisplayNameLabel.TextWrapped = true
+
+AltControllerLabel.Name = "AltControllerLabel"
+AltControllerLabel.Parent = PlayerWindow
+AltControllerLabel.AnchorPoint = Vector2.new(0.5, 0)
+AltControllerLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AltControllerLabel.BackgroundTransparency = 1.000
+AltControllerLabel.Position = UDim2.new(0.5, 0, 0.699787974, 0)
+AltControllerLabel.Size = UDim2.new(1, 0, -0.00606060587, 18)
+AltControllerLabel.Font = Enum.Font.GothamBold
+AltControllerLabel.Text = "Alt Controller"
+AltControllerLabel.TextColor3 = Color3.fromRGB(75, 75, 75)
+AltControllerLabel.TextSize = 12.000
+AltControllerLabel.TextWrapped = true
+
+CMDSWindow.Name = "CMDSWindow"
+CMDSWindow.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+CMDSWindow.BorderSizePixel = 0
+CMDSWindow.ClipsDescendants = true
+CMDSWindow.Position = UDim2.new(0.134273335, 0, 0.73714608, 0)
+CMDSWindow.Size = UDim2.new(0, 280, 0, 330)
+
+Title_2.Name = "Title"
+Title_2.Parent = CMDSWindow
+Title_2.AnchorPoint = Vector2.new(0.5, 0.5)
+Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title_2.BackgroundTransparency = 1.000
+Title_2.Position = UDim2.new(0.517857134, 0, 0.0513333306, 0)
+Title_2.Size = UDim2.new(0.964285731, 0, 0, 26)
+Title_2.Font = Enum.Font.GothamBold
+Title_2.Text = "CMDS"
+Title_2.TextColor3 = Color3.fromRGB(240, 240, 240)
+Title_2.TextSize = 16.000
+Title_2.TextWrapped = true
+Title_2.TextXAlignment = Enum.TextXAlignment.Left
+
+Icon_6.Name = "Icon"
+Icon_6.Parent = Title_2
+Icon_6.AnchorPoint = Vector2.new(0.5, 0.5)
+Icon_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Icon_6.BackgroundTransparency = 1.000
+Icon_6.Position = UDim2.new(0.928010583, 0, 0.5, 0)
+Icon_6.Size = UDim2.new(0, 20, 0, 20)
+Icon_6.Visible = false
+Icon_6.Image = "http://www.roblox.com/asset/?id=13247245125"
+Icon_6.ImageColor3 = Color3.fromRGB(240, 240, 240)
+
+UICorner_12.Parent = CMDSWindow
+
+Commands.Name = "Commands"
+Commands.Parent = CMDSWindow
+Commands.AnchorPoint = Vector2.new(0.5, 0)
+Commands.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Commands.BackgroundTransparency = 1.000
+Commands.Position = UDim2.new(0.5, 0, 0.0879999995, 0)
+Commands.Size = UDim2.new(0, 260, 0, 291)
+
+UIListLayout_3.Parent = Commands
+UIListLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+
+DropShadow_6.Name = "DropShadow"
+DropShadow_6.Parent = CMDSWindow
+DropShadow_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DropShadow_6.BackgroundTransparency = 1.000
+DropShadow_6.Position = UDim2.new(0, -15, 0, -15)
+DropShadow_6.Size = UDim2.new(1, 30, 1, 30)
+DropShadow_6.Visible = false
+DropShadow_6.ZIndex = 0
+DropShadow_6.Image = "rbxassetid://13246894467"
+DropShadow_6.ImageColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow_6.ScaleType = Enum.ScaleType.Slice
+DropShadow_6.SliceCenter = Rect.new(90, 76, 772, 787)
+
+CommandInfo.Name = "CommandInfo"
+CommandInfo.Parent = CMDSWindow
+CommandInfo.AnchorPoint = Vector2.new(0.5, 0)
+CommandInfo.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+CommandInfo.Position = UDim2.new(0.5, 0, 1, 0)
+CommandInfo.Size = UDim2.new(0.904999971, 0, 0, 85)
+
+UICorner_13.Parent = CommandInfo
+
+Title_3.Name = "Title"
+Title_3.Parent = CommandInfo
+Title_3.AnchorPoint = Vector2.new(0.5, 0.5)
+Title_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title_3.BackgroundTransparency = 1.000
+Title_3.Position = UDim2.new(0.5, 0, 0.159999996, 0)
+Title_3.Size = UDim2.new(0.940999985, 0, -0.0960000008, 26)
+Title_3.Font = Enum.Font.GothamBold
+Title_3.Text = "Command Name"
+Title_3.TextColor3 = Color3.fromRGB(240, 240, 240)
+Title_3.TextSize = 16.000
+Title_3.TextWrapped = true
+Title_3.TextXAlignment = Enum.TextXAlignment.Left
+
+Close.Name = "Close"
+Close.Parent = Title_3
+Close.AnchorPoint = Vector2.new(0, 0.5)
+Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Close.BackgroundTransparency = 1.000
+Close.Position = UDim2.new(0.948000014, 0, 0.5, 0)
+Close.Size = UDim2.new(0, 12, 0, 12)
+Close.Image = "rbxassetid://7072725342"
+
+Desc.Name = "Desc"
+Desc.Parent = CommandInfo
+Desc.AnchorPoint = Vector2.new(0.5, 0)
+Desc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Desc.BackgroundTransparency = 1.000
+Desc.Position = UDim2.new(0.5, 0, 0.264999986, 0)
+Desc.Size = UDim2.new(0.940822244, 0, 0.385542154, 22)
+Desc.Font = Enum.Font.Gotham
+Desc.Text = "Command description goes right here under the command name."
+Desc.TextColor3 = Color3.fromRGB(145, 145, 145)
+Desc.TextSize = 16.000
+Desc.TextWrapped = true
+Desc.TextXAlignment = Enum.TextXAlignment.Left
+Desc.TextYAlignment = Enum.TextYAlignment.Top
+
+UIListLayout_4.Parent = MainWindow
+UIListLayout_4.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_4.Padding = UDim.new(0, 6)
+
+AltsWindow.Name = "AltsWindow"
+AltsWindow.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+AltsWindow.BorderSizePixel = 0
+AltsWindow.ClipsDescendants = true
+AltsWindow.Position = UDim2.new(0.134273335, 0, 0.73714608, 0)
+AltsWindow.Size = UDim2.new(0, 280, 0, 330)
+AltsWindow.Visible = false
+
+Title_4.Name = "Title"
+Title_4.Parent = AltsWindow
+Title_4.AnchorPoint = Vector2.new(0.5, 0.5)
+Title_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title_4.BackgroundTransparency = 1.000
+Title_4.Position = UDim2.new(0.517857134, 0, 0.0513333306, 0)
+Title_4.Size = UDim2.new(0.964285731, 0, 0, 26)
+Title_4.Font = Enum.Font.GothamBold
+Title_4.Text = "Alts"
+Title_4.TextColor3 = Color3.fromRGB(240, 240, 240)
+Title_4.TextSize = 16.000
+Title_4.TextWrapped = true
+Title_4.TextXAlignment = Enum.TextXAlignment.Left
+
+Icon_7.Name = "Icon"
+Icon_7.Parent = Title_4
+Icon_7.AnchorPoint = Vector2.new(0.5, 0.5)
+Icon_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Icon_7.BackgroundTransparency = 1.000
+Icon_7.Position = UDim2.new(0.928010583, 0, 0.5, 0)
+Icon_7.Size = UDim2.new(0, 20, 0, 20)
+Icon_7.Visible = false
+Icon_7.Image = "http://www.roblox.com/asset/?id=13247245125"
+Icon_7.ImageColor3 = Color3.fromRGB(240, 240, 240)
+
+UICorner_14.Parent = AltsWindow
+
+DropShadow_7.Name = "DropShadow"
+DropShadow_7.Parent = AltsWindow
+DropShadow_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DropShadow_7.BackgroundTransparency = 1.000
+DropShadow_7.Position = UDim2.new(0, -15, 0, -15)
+DropShadow_7.Size = UDim2.new(1, 30, 1, 30)
+DropShadow_7.Visible = false
+DropShadow_7.ZIndex = 0
+DropShadow_7.Image = "rbxassetid://13246894467"
+DropShadow_7.ImageColor3 = Color3.fromRGB(25, 25, 25)
+DropShadow_7.ScaleType = Enum.ScaleType.Slice
+DropShadow_7.SliceCenter = Rect.new(90, 76, 772, 787)
+
+List.Name = "List"
+List.Parent = AltsWindow
+List.Active = true
+List.AnchorPoint = Vector2.new(0.5, 0)
+List.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+List.BackgroundTransparency = 1.000
+List.BorderSizePixel = 0
+List.Position = UDim2.new(0.5, 0, 0.0880001187, 0)
+List.Size = UDim2.new(0, 258, 0, 290)
+List.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+List.CanvasSize = UDim2.new(0, 0, 0, 0)
+List.ScrollBarThickness = 2
+List.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+
+UIListLayout_5.Parent = List
+UIListLayout_5.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout_5.Padding = UDim.new(0, 6)
+
+-- Scripts:
+local pinglabel = Counter_3
+local cmemlabel = Counter_2
+local cclabel = Counter
+
+coroutine.wrap(function()
+	while wait() do
+		cclabel.Text = tostring(_G.AltsConnected) .. ' Alts'
+	end
+end)()
+
+coroutine.wrap(function()
+	while wait() do
+		local CMEM = game:GetService("Stats"):GetTotalMemoryUsageMb()
+		cmemlabel.Text = math.floor(CMEM)
+	end
+end)()
+
+coroutine.wrap(function()
+	while wait() do
+		local PING = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+		pinglabel.Text = PING .. ' ms'
+	end
+end)
+
+-- AltsButton.Client is disabled.
+-- SettingsButton.Tiptool is disabled.
+-- SettingsButton.Client is disabled.
+-- CommandsButton.Client is disabled.
+
+local function Close_LocalScript() -- Close.LocalScript 
+	local script = Instance.new('LocalScript', Close)
+
+	local CommandInfo = script.Parent.Parent.Parent
+	
+	local TS = game:GetService('TweenService')
+	local TI = TweenInfo
+	
+	local ES = Enum.EasingStyle
+	local ED = Enum.EasingDirection
+	
+	script.Parent.MouseButton1Click:Connect(function()
+		TS:Create(CommandInfo, TI.new(.35, ES.Back, ED.InOut), {Position = UDim2.new(0.5, 0, 1, 0)}):Play()
+	end)
+	
+end
+coroutine.wrap(Close_LocalScript)()
+
+function newCommand(text, desc)
+	local Command = Instance.new("TextLabel")
+	local More = Instance.new("ImageButton")
+
+	Command.Name = "Command"
+	Command.Parent = Commands
+	Command.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Command.BackgroundTransparency = 1.000
+	Command.Size = UDim2.new(1, 0, 0, 22)
+	Command.Font = Enum.Font.GothamBold
+	Command.Text = _G.Prefix .. text
+	Command.TextColor3 = Color3.fromRGB(75, 75, 75)
+	Command.TextSize = 16.000
+	Command.TextWrapped = true
+	Command.TextXAlignment = Enum.TextXAlignment.Left
+
+	More.Name = "More"
+	More.Parent = Command
+	More.AnchorPoint = Vector2.new(0, 0.5)
+	More.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	More.BackgroundTransparency = 1.000
+	More.Position = UDim2.new(0.93599999, 0, 0.5, 0)
+	More.Size = UDim2.new(0, 17, 0, 17)
+	More.Image = "http://www.roblox.com/asset/?id=13247732273"
+	More.ImageColor3 = Color3.fromRGB(75, 75, 75)
+
+	local TS = game:GetService('TweenService')
+	local TI = TweenInfo
+
+	local ES = Enum.EasingStyle
+	local ED = Enum.EasingDirection
+
+	script.Parent.MouseButton1Click:Connect(function()
+		CommandInfo.Title.Text = text
+		CommandInfo.Desc.Text = desc
+		TS:Create(CommandInfo, TI.new(.6, ES.Quint, ED.InOut), {Position = UDim2.new(0.5, 0, 0.703, 0)}):Play()
+	end)
+end
+
+table.foreach(_G.CMDS, function(i,v)
+	newCommand(i, v)
+end)
+
+function newAltCard(alt)
+	local AltCard = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local AltAvatar = Instance.new("Frame")
+	local UICorner_2 = Instance.new("UICorner")
+	local Outline = Instance.new("Frame")
+	local UICorner_3 = Instance.new("UICorner")
+	local AvatarImage = Instance.new("ImageLabel")
+	local UICorner_4 = Instance.new("UICorner")
+	local Status = Instance.new("Frame")
+	local UICorner_5 = Instance.new("UICorner")
+	local AltNameLabel = Instance.new("TextLabel")
+	local StatusLabel = Instance.new("TextLabel")
+	local MoreButton = Instance.new("ImageButton")
+
+	--Properties:
+
+	AltCard.Name = "AltCard"
+	AltCard.Parent = List
+	AltCard.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	AltCard.Size = UDim2.new(0, 258, 0, 53)
+
+	UICorner.Parent = AltCard
+
+	AltAvatar.Name = "AltAvatar"
+	AltAvatar.Parent = AltCard
+	AltAvatar.AnchorPoint = Vector2.new(0, 0.5)
+	AltAvatar.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
+	AltAvatar.Position = UDim2.new(0.0348837227, 0, 0.5, 0)
+	AltAvatar.Size = UDim2.new(0, 42, 0, 42)
+
+	UICorner_2.CornerRadius = UDim.new(1, 0)
+	UICorner_2.Parent = AltAvatar
+
+	Outline.Name = "Outline"
+	Outline.Parent = AltAvatar
+	Outline.AnchorPoint = Vector2.new(0.5, 0.5)
+	Outline.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	Outline.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Outline.Size = UDim2.new(0.899999976, 0, 0.899999976, 0)
+
+	UICorner_3.CornerRadius = UDim.new(1, 0)
+	UICorner_3.Parent = Outline
+
+	AvatarImage.Name = "AvatarImage"
+	AvatarImage.Parent = Outline
+	AvatarImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	AvatarImage.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	AvatarImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+	AvatarImage.Size = UDim2.new(0.899999976, 0, 0.899999976, 0)
+	AvatarImage.Image = "rbxassetid://9281566377"
+
+	UICorner_4.CornerRadius = UDim.new(1, 0)
+	UICorner_4.Parent = AvatarImage
+
+	Status.Name = "Status"
+	Status.Parent = AltAvatar
+	Status.AnchorPoint = Vector2.new(1, 1)
+	Status.BackgroundColor3 = Color3.fromRGB(78, 143, 240)
+	Status.Position = UDim2.new(1, 0, 1, 0)
+	Status.Size = UDim2.new(0, 11, 0, 11)
+
+	UICorner_5.CornerRadius = UDim.new(1, 0)
+	UICorner_5.Parent = Status
+
+	AltNameLabel.Name = "AltNameLabel"
+	AltNameLabel.Parent = AltCard
+	AltNameLabel.AnchorPoint = Vector2.new(0.5, 0)
+	AltNameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	AltNameLabel.BackgroundTransparency = 1.000
+	AltNameLabel.Position = UDim2.new(0.540697694, 0, 0.217190728, 0)
+	AltNameLabel.Size = UDim2.new(0.639534891, 0, -0.0377358496, 18)
+	AltNameLabel.Font = Enum.Font.GothamBold
+	AltNameLabel.Text = alt
+	AltNameLabel.TextColor3 = Color3.fromRGB(240, 240, 240)
+	AltNameLabel.TextSize = 20.000
+	AltNameLabel.TextWrapped = true
+	AltNameLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+	StatusLabel.Name = "StatusLabel"
+	StatusLabel.Parent = AltCard
+	StatusLabel.AnchorPoint = Vector2.new(0.5, 0)
+	StatusLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	StatusLabel.BackgroundTransparency = 1.000
+	StatusLabel.Position = UDim2.new(0.540697694, 0, 0.546630859, 0)
+	StatusLabel.Size = UDim2.new(0.639534891, 0, -0.13896367, 18)
+	StatusLabel.Font = Enum.Font.GothamBold
+	StatusLabel.Text = "Status: Connecting"
+	StatusLabel.TextColor3 = Color3.fromRGB(78, 143, 240)
+	StatusLabel.TextSize = 15.000
+	StatusLabel.TextWrapped = true
+	StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+	MoreButton.Name = "MoreButton"
+	MoreButton.Parent = AltCard
+	MoreButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	MoreButton.BackgroundTransparency = 1.000
+	MoreButton.Position = UDim2.new(0.860465109, 0, 0.301886797, 0)
+	MoreButton.Size = UDim2.new(0, 20, 0, 20)
+	MoreButton.Visible = false
+	MoreButton.Image = "rbxassetid://7072719531"
+	MoreButton.ImageColor3 = Color3.fromRGB(143, 143, 143)
+	
+	-- Delays script until alt is connected
+	repeat wait() until game.Players:FindFirstChild(alt)
+
+	StatusLabel.Text = "Status: Connected"
+	StatusLabel.TextColor3 = Color3.fromRGB(62, 212, 80)
+	Status.BackgroundColor3 = Color3.fromRGB(62, 212, 80)
+	
+	AvatarImage.Image = game.Players:GetUserThumbnailAsync(game.Players[alt], Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+	
+	game.Players.PlayerRemoving:Connect(function(plr)
+		if plr.Name == alt then
+			warn('Alt has disconnected: ' ..alt)
+			-- Notify(alt..' Disconnected', 'User has disconnected.', 10)
+			
+			StatusLabel.Text = "Disconnected"
+			StatusLabel.TextColor3 = Color3.fromRGB(212, 37, 40)
+			Status.BackgroundColor3 = Color3.fromRGB(212, 37, 40)
+		end
+	end)
+end
+
+table.foreach(_G.Alts, function(i,v)
+	newAltCard(tostring(v))
+end)
+
+wait(1)
+StatsWindow.Parent = MainWindow
+wait(1)
+PlayerWindow.Parent = MainWindow
+wait(1)
+AltsWindow.Parent = MainWindow
+CMDSWindow.Parent = MainWindow
