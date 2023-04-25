@@ -985,9 +985,9 @@ function newCommand(text, desc)
 	end)
 end
 
-table.foreach(_G.CMDS, function(i,v)
+for i,v in ipairs(_G.CMDS) do
 	newCommand(i, v)
-end)
+end
 
 function newAltCard(alt)
 	local AltCard = Instance.new("Frame")
@@ -1113,9 +1113,9 @@ function newAltCard(alt)
 	end)
 end
 
-table.foreach(_G.Alts, function(i,v)
+for i,v in ipairs(_G.Alts) do
 	newAltCard(tostring(v))
-end)
+end
 
 wait(1)
 StatsWindow.Parent = MainWindow
